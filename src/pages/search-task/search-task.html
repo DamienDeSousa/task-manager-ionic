@@ -8,7 +8,7 @@
 
     <ion-navbar>
         <ion-buttons start>
-            <button ion-button clear (click)="dismissModal()">Fermer</button>
+            <button ion-button clear (click)="dismissModal()" color="danger">Fermer</button>
         </ion-buttons>
         <ion-title>Recherche d'une tâche</ion-title>
     </ion-navbar>
@@ -17,5 +17,16 @@
 
 
 <ion-content padding>
-    <p>ici il y aura le formulaire de recherche de tâche
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-list >
+        <ion-item>
+            <ion-label>Rechercher par</ion-label>
+            <ion-select>
+                <ion-option value="">AA</ion-option>
+                <ion-option value="" >BB</ion-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
+    <button type="submit" ion-button full color="primary">Rechercher</button>
+    </form>
 </ion-content>

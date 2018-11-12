@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, MenuController } from 'ionic-angular';
+import { NgForm } from '@angular/forms';
 
 /**
  * Generated class for the SearchTaskPage page.
@@ -19,6 +20,12 @@ export class SearchTaskPage {
 
   dismissModal()
   {
+    this.viewCtrl.dismiss();
+  }
+
+  onSubmit(form: NgForm)
+  {
+    console.log(form.value);
     this.viewCtrl.dismiss();
   }
 }

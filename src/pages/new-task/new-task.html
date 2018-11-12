@@ -11,5 +11,33 @@
 
 
 <ion-content padding>
-    <p>ici il y aura le formulaire de création de nouveau évènement</p>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-list >
+        <ion-item-divider >Informations</ion-item-divider>
+        <ion-item>
+            <ion-label >Titre</ion-label>
+            <ion-input type="text" name="title" [(ngModel)]="newTask.title"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label >Type</ion-label>
+            <ion-select name="type" [(ngModel)]="newTask.type">
+                <ion-option value="test1" >test1</ion-option>
+                <ion-option value="test2" >test2</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item >
+        <ion-label>Description</ion-label>
+        <ion-textarea name="description" maxLength="500" [(ngModel)]="newTask.description"></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label>Jour</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DDD MMM YYYY" name="date" [(ngModel)]="newTask.day"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>Heure de début</ion-label>
+            <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" name="moment" [(ngModel)]="newTask.moment"></ion-datetime>
+        </ion-item>
+    </ion-list>
+    <button type="submit" ion-button full color="success">Créer</button>
+    </form>
 </ion-content>
