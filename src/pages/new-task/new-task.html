@@ -1,9 +1,11 @@
 <ion-header>
 
     <ion-navbar>
-        <button ion-button icon-only clear (click)="onToggleMenu()">
-      <ion-icon name="menu"></ion-icon>
-    </button>
+        <ion-buttons left>
+            <button ion-button icon-only clear (click)="onToggleMenu()" color="primary">
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
         <ion-title>NewTask</ion-title>
     </ion-navbar>
 
@@ -12,32 +14,58 @@
 
 <ion-content padding>
     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <ion-list >
-        <ion-item-divider >Informations</ion-item-divider>
-        <ion-item>
-            <ion-label >Titre</ion-label>
-            <ion-input type="text" name="title" [(ngModel)]="newTask.title"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label >Type</ion-label>
-            <ion-select name="type" [(ngModel)]="newTask.type">
-                <ion-option value="test1" >test1</ion-option>
-                <ion-option value="test2" >test2</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item >
-        <ion-label>Description</ion-label>
-        <ion-textarea name="description" maxLength="500" [(ngModel)]="newTask.description"></ion-textarea>
-        </ion-item>
-        <ion-item>
-            <ion-label>Jour</ion-label>
-            <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DDD MMM YYYY" name="date" [(ngModel)]="newTask.day"></ion-datetime>
-        </ion-item>
-        <ion-item>
-            <ion-label>Heure de début</ion-label>
-            <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" name="moment" [(ngModel)]="newTask.moment"></ion-datetime>
-        </ion-item>
-    </ion-list>
-    <button type="submit" ion-button full color="success">Créer</button>
+        <ion-list>
+            <ion-item-divider color="secondary">Informations obligatoires</ion-item-divider>
+            <ion-item>
+                <ion-label>Titre</ion-label>
+                <ion-input type="text" name="title" [(ngModel)]="newTask.title"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Type</ion-label>
+                <ion-select name="type" [(ngModel)]="newTask.type">
+                    <ion-option *ngFor="let type of typeTaches" [value]="type">{{ type }}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Description</ion-label>
+                <ion-textarea name="description" maxLength="500" [(ngModel)]="newTask.description"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-label>Jour</ion-label>
+                <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DDD MMM YYYY" name="date" [(ngModel)]="newTask.day"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label>Heure de début</ion-label>
+                <ion-datetime displayFormat="HH:mm" pickerFormat="HH mm" name="moment" [(ngModel)]="newTask.moment"></ion-datetime>
+            </ion-item>
+            <ion-item-divider color="secondary">Informations facultatives</ion-item-divider>
+            <ion-item text-center>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <button type="button" ion-button icon-only large round color="primary" (click)="onTakePhoto()">
+                                <ion-icon name="camera"></ion-icon>
+                            </button>
+                        </ion-col>
+                        <ion-col *ngIf="newTask.type == 'Rendez-vous'">
+                            <button type="button" ion-button icon-only round large color="orange" (click)="onGeoLocate()">
+                                <ion-icon name="locate"></ion-icon>
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+            <ion-item *ngIf="address != ''">
+                <p>{{ address }}</p>
+            </ion-item>
+            <ion-item *ngIf="newTask.fileURL != ''">
+                <img [src]="newTask.fileURL" alt="Aperçu" style="max-width: 100%;">
+            </ion-item>
+            <ion-item>
+                <ion-label>Me notifier</ion-label>
+                <ion-toggle [(ngModel)]="notifActivated" name="notifMe"></ion-toggle>
+            </ion-item>
+        </ion-list>
+        <button type="submit" ion-button full color="success">Créer</button>
     </form>
 </ion-content>

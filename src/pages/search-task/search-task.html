@@ -1,16 +1,12 @@
-<!--
-  Generated template for the SearchTaskPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
     <ion-navbar>
         <ion-buttons start>
-            <button ion-button clear (click)="dismissModal()" color="danger">Fermer</button>
+            <button ion-button clear icon-only (click)="dismissModal()" color="danger">
+                <ion-icon name="close"></ion-icon>
+            </button>
         </ion-buttons>
-        <ion-title>Recherche d'une tâche</ion-title>
+        <ion-title>Recherche</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -18,15 +14,31 @@
 
 <ion-content padding>
     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <ion-list >
-        <ion-item>
-            <ion-label>Rechercher par</ion-label>
-            <ion-select>
-                <ion-option value="">AA</ion-option>
-                <ion-option value="" >BB</ion-option>
-            </ion-select>
-        </ion-item>
-    </ion-list>
-    <button type="submit" ion-button full color="primary">Rechercher</button>
+        <ion-list>
+            <ion-item>
+                <ion-label>Rechercher par</ion-label>
+                <ion-select [(ngModel)]="selectedCritere" name="selectedCritere">
+                    <ion-option *ngFor="let critere of criteres" [value]="critere">{{ critere }}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="selectedCritere == 'Titre'">
+                <ion-input type="text" name="title" placeholder="Titre" [(ngModel)]="titre"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="selectedCritere == 'Type'">
+                <ion-label>Liste des types</ion-label>
+                <ion-select name="type" [(ngModel)]="selectedType">
+                    <ion-option *ngFor="let type of typeTaches" [value]="type">{{ type }}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="selectedCritere == 'Date'">
+                <ion-label>Choisir un jour</ion-label>
+                <ion-datetime displayFormat="DD/MM/YYYY" name="day" [(ngModel)]="jour"></ion-datetime>
+            </ion-item>
+            <!--<ion-item *ngIf="selectedCritere == 'Date'">
+                <ion-label>Choisir une heure</ion-label>
+                <ion-datetime displayFormat="HH:mm" name="moment" [(ngModel)]="heure"></ion-datetime>
+            </ion-item>-->
+        </ion-list>
+        <button type="submit" ion-button full color="primary">Rechercher</button>
     </form>
 </ion-content>

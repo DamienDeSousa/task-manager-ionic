@@ -1,19 +1,31 @@
 <ion-header>
 
     <ion-navbar>
-        <button ion-button icon-only clear (click)="onToggleMenu()">
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>Evènements planifiés</ion-title>
+        <ion-buttons left>
+            <button ion-button icon-only clear (click)="onToggleMenu()" color="primary">
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Evènements</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <button ion-button (click)="onSearchTask()">Chercher un évènement</button>
-    <p>Ici il y aura la liste des tâches
+    <button ion-button full small (click)="onSearchTask()" color="info">Chercher un évènement</button>
+    <ion-list>
+        <ion-item *ngFor="let task of taskListDisplayed" (click)="onDisplayTask(task)">
+            <ion-icon *ngIf="task.type == 'Rendez-vous'" name="people" color="purple"></ion-icon>
+            <ion-icon *ngIf="task.type == 'Sport'" name="american-football" color="orange"></ion-icon>
+            <ion-icon *ngIf="task.type == 'Anniversaire'" name="people" color="pink"></ion-icon>
+            <ion-icon *ngIf="task.type == 'Travail à faire'" name="attach" color="purple"></ion-icon>
+            <ion-icon *ngIf="task.type == 'Voyage'" name="jet" color="primary"></ion-icon>
+            {{ task.title }}
+        </ion-item>
+    </ion-list>
 </ion-content>
 
 <ion-footer padding>
+
 </ion-footer>

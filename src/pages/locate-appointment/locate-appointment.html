@@ -1,0 +1,32 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button clear (click)="dismissModal()" color="danger">FERMER</button>
+        </ion-buttons>
+        <ion-title>Ajouter un lieu</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list no-lines>
+        <ion-item>
+            <ion-item>
+                <ion-input type="text" name="address" [(ngModel)]="address" placeholder="ex: 134 rue Saint Jacques 30127 Bellegarde"></ion-input>
+            </ion-item>
+            <ion-item>
+                <button ion-button full (click)="findCoords()">Rechercher</button>
+            </ion-item>
+        </ion-item>
+        <ion-item>
+            <agm-map [latitude]="latitude" [longitude]="longitude">
+                <agm-marker *ngIf="marker" [latitude]="marker.latitude" [longitude]="marker.longitude"></agm-marker>
+            </agm-map>
+        </ion-item>
+        <ion-item>
+            <button ion-button full large color="success" (click)="onDismissSuccess()">VALIDER</button>
+        </ion-item>
+    </ion-list>
+</ion-content>
